@@ -3,23 +3,44 @@ package com.zero.practice.dto.request;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.validator.constraints.Length;
 
+
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Getter
 @Setter
-@Builder
-@FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserRequest {
-    @Length(min = 5, message = "firstName minimum five character")
     String firstName;
 
-    @Length(min = 5, message = "lastName minimum five character")
     String lastName;
 
     String phone;
     String desc;
     String password;
     String email;
+
+    public String getFirstName() {
+        return this.firstName;
+    }
+
+    public String getLastName() {
+        return this.lastName;
+    }
+
+    public String getPhone() {
+        return this.phone;
+    }
+
+    public String getDesc() {
+        return this.desc;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
 }
