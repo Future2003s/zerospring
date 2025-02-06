@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: zero-to-hero-spring
+  profiles:
+    active: dev
