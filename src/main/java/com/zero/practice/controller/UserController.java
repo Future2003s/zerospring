@@ -4,6 +4,7 @@ package com.zero.practice.controller;
 import com.zero.practice.dto.request.UserRequest;
 import com.zero.practice.model.entity.User;
 import com.zero.practice.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,8 +13,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/v1/api")
-//@RequiredArgsConstructor
-//@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@Slf4j
 public class UserController {
 
     @Autowired
@@ -29,8 +29,10 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @GetMapping("/allUsers")
-    public List<User> getAllUser() {
+    @PostMapping("/allUsers")
+    public List<User> getAllUser(@RequestBody UserRequest request) {
+        log.info("OKKKK");
+        System.out.println("this is body >>>>" + request.getEmail());
         return userService.findAllUsers();
     }
 }
