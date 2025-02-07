@@ -11,10 +11,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -24,21 +21,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Override
-    public List<Map<String, String>> getAllUsers() {
-        List<Map<String, String>> rs = new ArrayList<>();
-        Map<String, String> usr1 = new HashMap<>();
-        usr1.put("name", "Nguyen Van A");
-        rs.add(usr1);
-        Map<String, String> usr2 = new HashMap<>();
-        usr2.put("name", "Nguyen Van B");
-        rs.add(usr2);
-
-        return rs;
-    }
 
     @Override
-    public List<User> findAllUsers() {
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
