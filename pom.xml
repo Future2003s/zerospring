@@ -13,19 +13,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>practice</name>
     <description>practice</description>
-    <url/>
-    <licenses>
-        <license/>
-    </licenses>
-    <developers>
-        <developer/>
-    </developers>
-    <scm>
-        <connection/>
-        <developerConnection/>
-        <tag/>
-        <url/>
-    </scm>
+
     <properties>
         <java.version>23</java.version>
         <org.mapstruct.version>1.6.3</org.mapstruct.version>
@@ -55,7 +43,6 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <optional>true</optional>
             <version>${lombok.version}</version>
         </dependency>
 
@@ -74,6 +61,19 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -98,8 +98,6 @@
                             <version>${lombok.mapstruct.binding}</version>
                         </path>
                     </annotationProcessorPaths>
-
-                    <showWarnings>true</showWarnings>
                     <compilerArgs>
                         <arg>
                             -Amapstruct.suppressGeneratorTimestamp=true
