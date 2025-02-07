@@ -15,6 +15,8 @@ public class UserRequest {
 
     String lastName;
 
+    String fullName;
+
     String phone;
     String desc;
     String password;

@@ -8,7 +8,6 @@ import com.zero.practice.service.UserService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,9 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserServiceImpl implements UserService {
-
-    @Autowired
-    private UserRepository userRepository;
+    UserRepository userRepository;
 
 
     @Override
@@ -38,6 +35,19 @@ public class UserServiceImpl implements UserService {
 
         return userRepository.save(user);
     }
+
+    @Override
+    public User updateUser(Long id, UserRequest request) {
+        User findUser = userRepository.findById(id).orElseThrow();
+
+        findUser.setFirstName(request.getFirstName());
+        findUser.setLastName(request.getLastName());
+        findUser.setEmail(request.getEmail());
+        findUser.setFullName(request.getFullName());
+
+        return userRepository.save(findUser);
+    }
+
 
     @Override
     public void deleteUser(Long id) {
