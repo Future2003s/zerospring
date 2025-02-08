@@ -1,6 +1,8 @@
-package com.zero.practice.model.entity;
+package com.zero.practice.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -12,11 +14,7 @@ import lombok.experimental.FieldDefaults;
 @Setter
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-
+public class User extends AbstractEntity {
     @Column(name = "firstName", columnDefinition = "varchar(255) comment 'first name'")
     String firstName;
 

@@ -2,7 +2,7 @@ package com.zero.practice.controller;
 
 
 import com.zero.practice.dto.request.UserRequest;
-import com.zero.practice.model.entity.User;
+import com.zero.practice.model.User;
 import com.zero.practice.service.UserService;
 import jakarta.validation.constraints.Min;
 import lombok.AccessLevel;

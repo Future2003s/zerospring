@@ -3,7 +3,7 @@ package com.zero.practice.service.impl;
 
 import com.zero.practice.dto.request.UserRequest;
 import com.zero.practice.mapper.UserMapper;
-import com.zero.practice.model.entity.User;
+import com.zero.practice.model.User;
 import com.zero.practice.repository.UserRepository;
 import com.zero.practice.service.UserService;
 import lombok.AccessLevel;
