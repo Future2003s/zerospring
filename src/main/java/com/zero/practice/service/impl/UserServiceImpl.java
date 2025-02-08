@@ -2,6 +2,7 @@ package com.zero.practice.service.impl;
 
 
 import com.zero.practice.dto.request.UserRequest;
+import com.zero.practice.mapper.UserMapper;
 import com.zero.practice.model.entity.User;
 import com.zero.practice.repository.UserRepository;
 import com.zero.practice.service.UserService;
@@ -17,7 +18,7 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserServiceImpl implements UserService {
     UserRepository userRepository;
-
+    UserMapper userMapper;
 
     @Override
     public List<User> getAllUsers() {
@@ -26,12 +27,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(UserRequest userRequest) {
-        User user = User.builder()
-                .firstName(userRequest.getFirstName())
-                .lastName(userRequest.getLastName())
-                .email(userRequest.getEmail())
-                .password(userRequest.getPassword())
-                .build();
+        User user = userMapper.toUser(userRequest);
 
         return userRepository.save(user);
     }
