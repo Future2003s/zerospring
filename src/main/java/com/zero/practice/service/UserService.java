@@ -20,5 +20,4 @@ public interface UserService {
 
     Page<User> findAllUsers(Pageable pageable);
 
-
 }

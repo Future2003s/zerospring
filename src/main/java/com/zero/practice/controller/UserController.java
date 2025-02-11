@@ -47,6 +47,7 @@ public class UserController {
         Pageable pageable = PageRequest.of(page, size, sortBy);
         log.info(String.valueOf(sortBy));
 
+
         return userService.findAllUsers(pageable);
     }
 

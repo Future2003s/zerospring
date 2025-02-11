@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,6 +40,10 @@ public class UserServiceImpl implements UserService {
         }
 
         User user = userMapper.toUser(userRequest);
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
+        user.setPassword(encoder.encode(userRequest.getPassword()));
+
 
         return userRepository.save(user);
     }
