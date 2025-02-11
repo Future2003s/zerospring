@@ -44,4 +44,9 @@ public class UserController {
         log.info("Delete active user {}", id);
     }
 
+    @GetMapping("/user")
+    public User getUser(@RequestParam(name = "id") Long id) {
+        return userService.findUserById(id);
+    }
+
 }
