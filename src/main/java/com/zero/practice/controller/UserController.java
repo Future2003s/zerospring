@@ -9,6 +9,10 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,7 +26,27 @@ public class UserController {
 
     UserService userService;
 
+
+    @GetMapping("/getAll")
+    public Page<User> getAll(
+            @RequestParam int page,
+            @RequestParam int size,
+            @RequestParam(defaultValue = "id") String id,
+            @RequestParam(defaultValue = "asc") String direction
+    ) {
+        Sort.Direction sortDirection = direction.equalsIgnoreCase("asc") ?
+                Sort.Direction.ASC : Sort.Direction.DESC;
+
+        Sort sortBy = Sort.by(sortDirection, id);
+
+        Pageable pageable = PageRequest.of(page, size, sortBy);
+        log.info(String.valueOf(sortBy));
+
+        return userService.findAllUsers(pageable);
+    }
+
     @PostMapping("/addUser")
+
     public User createUser(@RequestBody UserRequest userRequest) {
         return userService.createUser(userRequest);
     }
