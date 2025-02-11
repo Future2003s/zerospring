@@ -18,6 +18,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/v1/api")
 @Slf4j
@@ -53,8 +55,8 @@ public class UserController {
     }
 
     @GetMapping("/allUser")
-    public ResponseSuccess getAllUsers() {
-        return new ResponseSuccess(HttpStatus.OK, "Get All User SuccessFully", userService.getAllUsers());
+    public ResponseSuccess<List<User>> getAllUsers() {
+        return new ResponseSuccess<>(HttpStatus.OK, "Get All User SuccessFully", userService.getAllUsers());
     }
 
     @PutMapping("/updateUser/{id}")

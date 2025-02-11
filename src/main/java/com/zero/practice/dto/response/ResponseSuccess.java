@@ -6,27 +6,29 @@ import lombok.Setter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-public class ResponseSuccess extends ResponseEntity<ResponseSuccess.Payload> {
+import java.io.Serializable;
+
+public class ResponseSuccess<T> extends ResponseEntity<ResponseSuccess.Payload<T>> implements Serializable {
 
     public ResponseSuccess(HttpStatus status, String message) {
-        super(new Payload(status.value(), message), status);
+        super(new Payload<T>(status.value(), message), status);
     }
 
-    public ResponseSuccess(HttpStatus status, String message, Object data) {
-        super(new Payload(status.value(), message, data), status);
+    public ResponseSuccess(HttpStatus status, String message, T data) {
+        super(new Payload<T>(status.value(), message, data), status);
     }
 
 
     @Getter
     @Setter
     @RequiredArgsConstructor
-    public static class Payload {
+    public static class Payload<T> {
         private final int statusCode;
         private final String message;
-        Object data;
+        T data;
 
 
-        public Payload(int statusCode, String message, Object data) {
+        public Payload(int statusCode, String message, T data) {
             this.statusCode = statusCode;
             this.message = message;
             this.data = data;
