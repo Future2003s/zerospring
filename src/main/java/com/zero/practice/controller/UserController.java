@@ -4,6 +4,7 @@ package com.zero.practice.controller;
 import com.zero.practice.dto.request.UserRequest;
 import com.zero.practice.dto.response.ResponseSuccess;
 import com.zero.practice.model.User;
+import com.zero.practice.repository.UserRepository;
 import com.zero.practice.service.UserService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
@@ -28,6 +29,7 @@ import java.util.List;
 public class UserController {
 
     UserService userService;
+    private final UserRepository userRepository;
 
 
     @GetMapping("/getAll")

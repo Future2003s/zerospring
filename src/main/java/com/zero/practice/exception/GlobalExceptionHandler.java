@@ -2,6 +2,7 @@ package com.zero.practice.exception;
 
 
 import com.zero.practice.dto.response.ErrorResponse;
+import com.zero.practice.dto.response.ResponseError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -27,5 +28,14 @@ public class GlobalExceptionHandler {
                 .build();
 
         return err;
+    }
+
+
+    @ExceptionHandler(value = AppException.class)
+    public ResponseError handlingAppException(AppException e, WebRequest request) {
+        ErrorCode errorCode = e.getErrorCode();
+        return new ResponseError(
+                errorCode.getCode(), errorCode.getMessage()
+        );
     }
 }
