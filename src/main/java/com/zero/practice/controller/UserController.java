@@ -2,6 +2,7 @@ package com.zero.practice.controller;
 
 
 import com.zero.practice.dto.request.UserRequest;
+import com.zero.practice.dto.response.ResponseSuccess;
 import com.zero.practice.model.User;
 import com.zero.practice.service.UserService;
 import jakarta.validation.Valid;
@@ -14,9 +15,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/v1/api")
@@ -53,8 +53,8 @@ public class UserController {
     }
 
     @GetMapping("/allUser")
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
+    public ResponseSuccess getAllUsers() {
+        return new ResponseSuccess(HttpStatus.OK, "Get All User SuccessFully", userService.getAllUsers());
     }
 
     @PutMapping("/updateUser/{id}")
