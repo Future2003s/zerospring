@@ -4,6 +4,7 @@ package com.zero.practice.controller;
 import com.zero.practice.dto.request.UserRequest;
 import com.zero.practice.model.User;
 import com.zero.practice.service.UserService;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -47,7 +48,7 @@ public class UserController {
 
     @PostMapping("/addUser")
 
-    public User createUser(@RequestBody UserRequest userRequest) {
+    public User createUser(@RequestBody @Valid UserRequest userRequest) {
         return userService.createUser(userRequest);
     }
 
