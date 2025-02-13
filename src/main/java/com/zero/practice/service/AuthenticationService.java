@@ -1,8 +1,9 @@
 package com.zero.practice.service;
 
 import com.zero.practice.dto.request.AuthenticateRequest;
-import com.zero.practice.model.User;
+import com.zero.practice.dto.response.AuthenticationResponse;
 
 public interface AuthenticationService {
-    User login(AuthenticateRequest request);
+    AuthenticationResponse login(AuthenticateRequest request);
+
 }
