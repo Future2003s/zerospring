@@ -2,9 +2,13 @@ package com.zero.practice.service.impl;
 
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
+import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
+import com.nimbusds.jwt.SignedJWT;
 import com.zero.practice.dto.request.AuthenticateRequest;
+import com.zero.practice.dto.request.IntrospectRequest;
 import com.zero.practice.dto.response.AuthenticationResponse;
+import com.zero.practice.dto.response.IntrospectResponse;
 import com.zero.practice.exception.AppException;
 import com.zero.practice.exception.ErrorCode;
 import com.zero.practice.model.User;
@@ -19,6 +23,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
@@ -35,6 +40,27 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @NonFinal
     @Value("${jwt.signerKey}")
     protected String SIGNER_KEY;
+
+
+    @Override
+    public IntrospectResponse introspect(IntrospectRequest request)
+            throws JOSEException, ParseException {
+        String token = request.getToken();
+        JWSVerifier verifier = new MACVerifier(SIGNER_KEY.getBytes());
+
+        SignedJWT signedJWT = SignedJWT.parse(token);
+
+        Date expireTime = signedJWT.getJWTClaimsSet().getExpirationTime();
+
+        var verified = signedJWT.verify(verifier);
+
+
+        return IntrospectResponse.
+                builder()
+                .valid(verified && expireTime.after(new Date()))
+                .build();
+
+    }
 
     @Override
 

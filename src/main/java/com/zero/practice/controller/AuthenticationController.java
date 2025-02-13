@@ -1,8 +1,11 @@
 package com.zero.practice.controller;
 
 
+import com.nimbusds.jose.JOSEException;
 import com.zero.practice.dto.request.AuthenticateRequest;
+import com.zero.practice.dto.request.IntrospectRequest;
 import com.zero.practice.dto.response.AuthenticationResponse;
+import com.zero.practice.dto.response.IntrospectResponse;
 import com.zero.practice.dto.response.ResponseSuccess;
 import com.zero.practice.service.AuthenticationService;
 import jakarta.validation.Valid;
@@ -15,6 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.text.ParseException;
 
 
 @RestController
@@ -30,5 +35,10 @@ public class AuthenticationController {
         return new ResponseSuccess<>(HttpStatus.OK, "Login SuccessFully", authenticationService.login(authenticateRequest));
     }
 
-    
+
+    @PostMapping("/token")
+    public ResponseSuccess<IntrospectResponse> authenticate(@RequestBody IntrospectRequest request)
+            throws JOSEException, ParseException {
+        return new ResponseSuccess<>(HttpStatus.OK, "Token SuccessFully", authenticationService.introspect(request));
+    }
 }
